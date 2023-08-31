@@ -7,3 +7,4 @@
 - git clone this repository
 - run this code in terminal, `source .venv/bin/activate` , to create a virtual environment.
 - Install Flask, `python -m pip install flask`
+- Run python -m flask run
