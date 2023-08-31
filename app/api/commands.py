@@ -7,7 +7,7 @@ def get_interface(device):
     disconnect_device(connection)
     return output
 
-# Loopback interface
+# Create loopback interface
 def create_loopback(device, loopback_number, ip_address):
     connection = connect_device(device)
     config_commands = [
@@ -19,7 +19,23 @@ def create_loopback(device, loopback_number, ip_address):
         "exit",
         "show ip int brief"
     ]
+    connection.send_config_set(config_commands)
+    output = connection.send_command(f"show interfaces loopback {loopback_number}")
+    disconnect_device(connection)
+    return output
 
-    output = connection.send_config_set(config_commands)
+# Delete loopback interface
+def delete_loopback(device, loopback_number):
+    connection = connect_device(device)
+    config_commands = [
+        f"no interface Loopback{loopback_number}",
+        "no shutdown",
+        "commit",
+        # "exit",
+        # "exit",
+        # "show ip int brief"
+    ]
+    connection.send_config_set(config_commands)
+    output = connection.send_command("sh ip int brief")
     disconnect_device(connection)
     return output

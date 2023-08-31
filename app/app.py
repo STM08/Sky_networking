@@ -2,11 +2,10 @@ import json
 
 from flask import Flask, request
 from api.commands import get_interface
-from api.commands import create_loopback
+from api.commands import create_loopback, delete_loopback
 from model.devices import Device
 
 app = Flask(__name__)
-
 
 @app.route("/")
 def home():
@@ -33,7 +32,7 @@ def interface():
         return "Cannot retrieve interfaces"
     
 @app.post("/loopback")
-def loopback():
+def add_loopback():
     input_json = request.get_json()
     new_device = Device(input_json["ip"], input_json["device_type"], input_json["username"], input_json["password"])
     try:
@@ -42,3 +41,13 @@ def loopback():
         return output
     except:
         return "Cannot create loopback"
+    
+@app.delete("/loopback")
+def remove_loopback():
+    input_json = request.get_json()
+    new_device = Device(input_json["ip"], input_json["device_type"], input_json["username"], input_json["password"])
+    try:
+        output = delete_loopback(new_device, input_json["loopback_number"])
+        return f"Loopback removed \n {output}" 
+    except:
+        return "Cannot delete loopback"
