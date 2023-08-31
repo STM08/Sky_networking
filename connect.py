@@ -25,12 +25,19 @@ def connect_device(device):
     connection = ConnectHandler(ip = device.ip,
                                   device_type = device.device_type,
                                   username = device.username,
-                                  password = device.password)
+                                  password = device.password,
+                                  timeout=60,  # Set timeout to 60 seconds
+                                  global_delay_factor=2  # Slow down Netmiko if needed
+                                #   response_return="\n"
+                                  )
     return connection
 
 
-# Print out the shell ip interface brief
-# print(connect_device().send_command("sh ip int brief"))
+# connection = connect_device(new_device)
+# commands=["show ip int brief"]
+# output = connection.send_command("show ip int brief")
+# print(output)
+
 
 
 # Loopback interface
@@ -38,27 +45,32 @@ def create_loopback(connection, loopback_number, ip_address):
     config_commands = [
         f"interface Loopback{loopback_number}",
         f"ip address {ip_address} 255.255.255.255",
-        "no shutdown"
+        "no shutdown",
+        "commit",
+        "exit",
+        "exit",
+        "show ip int brief"
     ]
+
     output = connection.send_config_set(config_commands)
     return output
 
 # Disconnect after printing
-def disconnect_device():
-    connect_device(new_device).disconnect()
+def disconnect_device(connection):
+    connection.disconnect()
 
 if __name__ == "__main__":
     # Connect to the device
     connection = connect_device(new_device)
 
     # Create Loopback interface (Loopback1 with IP 10.0.0.1)
-    output = create_loopback(connection, 1, "127.0.0.1")
+    output = create_loopback(connection, 1, "10.0.0.6")
     print("Configuration Output: ", output)
 
     # Disconnect from the device
-    disconnect_device()
+    disconnect_device(connection)
 
 
-# disconnect_device()
+
 
 # create_loopback()
