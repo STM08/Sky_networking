@@ -1,7 +1,3 @@
-from ncclient import manager
-# import xmltodict
-import xml.dom.minidom
-
 from netconf_connect import connect
 
 RTR1_MGR = connect()

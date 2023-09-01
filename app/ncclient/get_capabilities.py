@@ -1,5 +1,3 @@
-from ncclient import manager
-
 from netconf_connect import connect
 
 RTR1_MGR = connect()

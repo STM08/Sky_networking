@@ -9,4 +9,5 @@ def connect():
         timeout=10, 
         device_params={'name':'csr'},
         hostkey_verify=False)
+    print(connection)
     return connection
