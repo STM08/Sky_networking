@@ -6,15 +6,15 @@ from netconf_connect import connect
 
 RTR1_MGR = connect()
 
-
 FILTER = """
  <filter>
         <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
-         <hostname></hostname>
+        <interface>
+         <Loopback></Loopback>
+         </interface>
         </native>
  </filter>
 """
-
 
 CONFIG = RTR1_MGR.get_config('running', FILTER)
 

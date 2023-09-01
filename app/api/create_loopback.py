@@ -26,8 +26,8 @@ RTR1_MGR = connect()
 
 # PAYLOAD = CONFIG(int_name = "Loopback1", int_desc = "Loopback created via netconf", ip_address = "10.0.0.6" )
 
-DATA = RTR1_MGR.edit_config(CONFIG, target = 'running')
+RESPONSE = RTR1_MGR.edit_config(CONFIG, target = 'running')
 
-print(DATA)
+print(RESPONSE)
 
 RTR1_MGR.close_session()    

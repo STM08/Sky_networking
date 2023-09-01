@@ -1,5 +1,4 @@
 from netmiko import ConnectHandler
-from model.devices import Device
 
 def connect_device(device):
     try:

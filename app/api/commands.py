@@ -1,29 +1,12 @@
 from api.netconf_connect import connect
+from app.api.connect import connect_device, disconnect_device
 
 
-def get_interface():
-    connection = connect()
-    print("connected")
-    output = connection.get_config('running')
-    print("2")
-    xml_doc = parseString(output)
-    print("3")
-    print(xml_doc)
-    connection.close_session()
-    print("disconnected")
-    return xml_doc
-
-def get_loopback():
-    connection = connect()
-    print("connected")
-    output = connection.get_config('running')
-    xml_doc = parseString(str(output))
-    loopback = xml_doc.getElementsByTagName("Loopback")
-    print(loopback)
-    connection.close_session()
-    print("disconnected")
-    print(xml_doc)
-    return xml_doc
+def get_interface(device):
+    connection = connect_device(device)
+    output = connection.send_command("sh ip int brief")
+    disconnect_device(connection)
+    return output
 
 # # Create loopback interface
 # def create_loopback(device, loopback_number, ip_address):
