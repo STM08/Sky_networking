@@ -1,8 +1,3 @@
-# from api.connect import connect_device, disconnect_device
-
-# from lxml import etree
-from xml.dom.minidom import parseString
-# Print out the ip interface brief
 from api.netconf_connect import connect
 
 
