@@ -1,7 +1,7 @@
 import xml.dom.minidom
 
-def create_loopback(connection, loopback):
-    CONFIG = """
+def create_loopback(m, request):
+    loopback_config_template = """
     <config>
         <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
                 <interface>
@@ -20,8 +20,11 @@ def create_loopback(connection, loopback):
     </config>
     """
 
-    CONFIG = CONFIG.format(name=loopback["name"], description=loopback["description"], ip=loopback["ip"], netmask=loopback["netmask"])    
-    RESPONSE = connection.edit_config(CONFIG, target = 'running')
-    RESPONSE = xml.dom.minidom.parseString(str(RESPONSE)).toprettyxml()    
+    PAYLOAD = loopback_config_template.format(name=request["name"], description=request["description"], ip=request["ip"], netmask=request["netmask"])  
 
-    return RESPONSE        
+    try:    
+        RESPONSE = m.edit_config(PAYLOAD, target = 'running')
+        RESPONSE = xml.dom.minidom.parseString(str(RESPONSE)).toprettyxml()
+        return RESPONSE
+    except:
+        return "Failed to create loopback"

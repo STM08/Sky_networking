@@ -19,23 +19,22 @@ def home():
 def interface():
     input_json = request.get_json()
     device = Device(input_json["ip"], input_json["device_type"], input_json["username"], input_json["password"])
-    connection = connect_device(device)
+    m = connect_device(device)
     try:
-        output = get_interface(connection)
-        disconnect_device(connection)
+        output = get_interface(m)
+        disconnect_device(m)
         return output
     except:
         return "Cannot retrieve interfaces"
     
 @app.post("/loopback")
 def add_loopback():
-    connection = connect()
-    
+    m = connect()
+    print("Connected")
     try:
         input_json = request.get_json()
-        print("Try")
-        RESPONSE = create_loopback(connection, input_json)
-        connection.close_session()
+        RESPONSE = create_loopback(m, input_json)
+        m.close_session()
         print("Disconnected")
         return RESPONSE
     except:
@@ -43,12 +42,12 @@ def add_loopback():
     
 @app.delete("/loopback")
 def remove_loopback():
-    connection = connect()
+    m = connect()
     input_json = request.get_json()
     try:
         print("Try")
-        RESPONSE = delete_loopback(connection, input_json)
-        connection.close_session()
+        RESPONSE = delete_loopback(m, input_json)
+        m.close_session()
         print("Disconnected")
         print(RESPONSE)
         return "Loopback removed" 

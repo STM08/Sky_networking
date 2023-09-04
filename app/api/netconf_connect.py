@@ -1,7 +1,7 @@
 from ncclient import manager
 
 def connect():
-    connection = manager.connect(
+    m = manager.connect(
         host='sandbox-iosxe-recomm-1.cisco.com',
         port='830',
         username='developer',
@@ -9,5 +9,4 @@ def connect():
         timeout=10, 
         device_params={'name':'csr'},
         hostkey_verify=False)
-    print(connection)
-    return connection
+    return m

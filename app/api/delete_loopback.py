@@ -1,6 +1,6 @@
 import xml.dom.minidom
 
-def delete_loopback(connection, loopback):
+def delete_loopback(m, request):
         DELETE = """
         <config>
                 <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
@@ -11,9 +11,9 @@ def delete_loopback(connection, loopback):
         </config>
         """
 
-        DELETE = DELETE.format(name=loopback["name"])
+        DELETE = DELETE.format(name=request["name"])
 
-        RESPONSE = connection.edit_config(DELETE, target = 'running')
+        RESPONSE = m.edit_config(DELETE, target = 'running')
         RESPONSE = xml.dom.minidom.parseString(str(RESPONSE)).toprettyxml()
 
         return RESPONSE    
