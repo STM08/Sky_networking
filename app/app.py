@@ -1,8 +1,10 @@
-import json
 
 from flask import Flask, request
 from api.commands import get_interface
-from api.commands import create_loopback, delete_loopback
+from api.connect import netmiko_connection, ncclient_connection
+from api.create_loopback import create_loopback
+from api.delete_loopback import delete_loopback
+
 from model.devices import Device
 
 app = Flask(__name__)
@@ -11,43 +13,43 @@ app = Flask(__name__)
 def home():
     return "Hello world from venv using Flask."
     
-# @app.post("/connect")
-# def connect():
-#     input_json = request.get_json()
-#     new_device = Device(input_json["ip"], input_json["device_type"], input_json["username"], input_json["password"])
-#     try:
-#         new_connection = connect_device(new_device)
-#         return "Successfully connected!"
-#     except:
-#         return "Cannot retrieve interfaces"
-
 @app.get("/interface")
 def interface():
     input_json = request.get_json()
-    new_device = Device(input_json["ip"], input_json["device_type"], input_json["username"], input_json["password"])
+    device = Device(input_json["ip"], input_json["device_type"], input_json["username"], input_json["password"])
+    m = netmiko_connection(device)
     try:
-        output = get_interface(new_device)
+        output = get_interface(m)
+        m.disconnect()
         return output
-    except:
-        return "Cannot retrieve interfaces"
+    except Exception as e:
+        print(e)
+        return "Unable to get interface"
     
 @app.post("/loopback")
 def add_loopback():
     input_json = request.get_json()
-    new_device = Device(input_json["ip"], input_json["device_type"], input_json["username"], input_json["password"])
+    m = ncclient_connection()
+    print("Connected")
     try:
-        output = create_loopback(new_device, input_json["loopback_number"], input_json["loopback_ip_address"])
-        print(output)
-        return output
-    except:
-        return "Cannot create loopback"
+        RESPONSE = create_loopback(m, input_json)
+        m.close_session()
+        print("Disconnected")
+        return RESPONSE
+    except Exception as e:
+        print(e)
+        return "Unable to configure loopback"
     
 @app.delete("/loopback")
 def remove_loopback():
     input_json = request.get_json()
-    new_device = Device(input_json["ip"], input_json["device_type"], input_json["username"], input_json["password"])
+    m = ncclient_connection()
+    print("Connected")
     try:
-        output = delete_loopback(new_device, input_json["loopback_number"])
-        return f"Loopback removed \n {output}" 
-    except:
-        return "Cannot delete loopback"
+        RESPONSE = delete_loopback(m, input_json)
+        m.close_session()
+        print("Disconnected")
+        return RESPONSE 
+    except Exception as e:
+        print(e)
+        return "Unable to delete loopback"
