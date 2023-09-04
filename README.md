@@ -25,7 +25,7 @@ Prerequisites
 To run the main application, execute the app.py script:
 
 python app.py
-
+python -m flask run
 This will start the Flask web application, and you can access it via a web browser at http://127.0.0.1:5000/.
 
 #### Running the TEST
