@@ -30,9 +30,11 @@ def interface():
 @app.post("/loopback")
 def add_loopback():
     connection = connect()
+    
     try:
+        input_json = request.get_json()
         print("Try")
-        RESPONSE = create_loopback(connection)
+        RESPONSE = create_loopback(connection, input_json)
         connection.close_session()
         print("Disconnected")
         return RESPONSE
@@ -42,9 +44,10 @@ def add_loopback():
 @app.delete("/loopback")
 def remove_loopback():
     connection = connect()
+    input_json = request.get_json()
     try:
         print("Try")
-        RESPONSE = delete_loopback(connection)
+        RESPONSE = delete_loopback(connection, input_json)
         connection.close_session()
         print("Disconnected")
         print(RESPONSE)
