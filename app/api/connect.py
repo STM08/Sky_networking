@@ -10,8 +10,8 @@ def netmiko_connection(device):
         print("Successfully connected")
         return m
     except Exception as e:
-        return e
-
+        #return e
+        raise ConnectionError(f"Failed to connect: {e}")
 def ncclient_connection():
     m = manager.connect(
         host='sandbox-iosxe-recomm-1.cisco.com',
