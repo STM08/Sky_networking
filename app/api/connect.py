@@ -12,13 +12,13 @@ def netmiko_connection(device):
     except Exception as e:
         return e
     
-def ncclient_connection():
+def ncclient_connection(device):
     try:
         m = manager.connect(
-            host='sandbox-iosxe-recomm-1.cisco.com',
-            port='830',
-            username='developer',
-            password='lastorangerestoreball8876',
+            host=device["host"],
+            port=device["port"],
+            username=device["username"],
+            password=device["password"],
             timeout=10, 
             device_params={'name':'csr'},
             hostkey_verify=False)

@@ -28,7 +28,7 @@ def interface():
 @app.post("/loopback")
 def add_loopback():
     input_json = request.get_json()
-    m = ncclient_connection()
+    m = ncclient_connection(input_json)
     print("Connected")
     try:
         RESPONSE = create_loopback(m, input_json)
@@ -42,7 +42,7 @@ def add_loopback():
 @app.delete("/loopback")
 def remove_loopback():
     input_json = request.get_json()
-    m = ncclient_connection()
+    m = ncclient_connection(input_json)
     print("Connected")
     try:
         RESPONSE = delete_loopback(m, input_json)
