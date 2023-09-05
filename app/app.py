@@ -12,7 +12,7 @@ app = Flask(__name__)
 def home():
     return "Hello world from venv using Flask."
     
-@app.get("/interface")
+@app.post("/interface")
 def interface():
     input_json = request.get_json()
     device = Device(input_json["ip"], input_json["device_type"], input_json["username"], input_json["password"])
