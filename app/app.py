@@ -1,4 +1,3 @@
-
 from flask import Flask, request
 from api.commands import get_interface
 from api.connect import netmiko_connection, ncclient_connection
@@ -24,7 +23,7 @@ def interface():
         return output
     except Exception as e:
         print(e)
-        return "Unable to get interface"
+        return "Unable to get interface:" + str(e)
     
 @app.post("/loopback")
 def add_loopback():
@@ -38,7 +37,7 @@ def add_loopback():
         return RESPONSE
     except Exception as e:
         print(e)
-        return "Unable to configure loopback"
+        return "Unable to configure loopback: " + str(e)
     
 @app.delete("/loopback")
 def remove_loopback():
@@ -52,4 +51,4 @@ def remove_loopback():
         return RESPONSE 
     except Exception as e:
         print(e)
-        return "Unable to delete loopback"
+        return "Unable to delete loopback: " + str(e)

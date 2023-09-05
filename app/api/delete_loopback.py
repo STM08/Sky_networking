@@ -1,5 +1,7 @@
 import ncclient
+
 from .get_all_loopbacks import get_all_loopbacks
+
 def delete_loopback(m, request):
         delete_loopback_template = """
         <config>
@@ -20,7 +22,7 @@ def delete_loopback(m, request):
                 return "Successfully deleted Loopback" + request["name"] + f"\n\n" + RESPONSE
            except ncclient.NCClientError as e:
                 print("FAIL")
-                return str(e)
+                raise Exception(e)
         else:
              return "PAYLOAD:" + f"\n" + PAYLOAD
         

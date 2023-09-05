@@ -1,6 +1,5 @@
 import ncclient
 
-#from api.filter_loopback import filter_loopback
 from .filter_loopback import filter_loopback
 
 def create_loopback(m, request):
