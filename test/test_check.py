@@ -2,7 +2,8 @@ import pytest
 from app.api.connect import netmiko_connection, ncclient_connection
 from .data_for_test import test_device, mock_request, mock_config_response, mock_interface_response
 from app.api.create_loopback import create_loopback
-from unittest.mock import Mock
+from app.api.delete_loopback import delete_loopback
+from unittest.mock import Mock, patch
 from app.api.commands import get_interface
 ## Test for Sandbox Connection
 def test_connect_device():
@@ -73,3 +74,38 @@ def test_get_interface():
     # Check the response
     assert "GigabitEthernet1 10.10.20.48 YES NVRAM up up" in response
     assert "Loopback203 192.168.45.1 YES other up up" in response
+
+
+def test_delete_loopback():
+    # Mock the connection object
+    mock_connection = Mock()
+    
+    # Mock the response for edit_config to simulate successful NETCONF operation
+    mock_connection.edit_config.return_value = "<ok/>"
+    
+    # Mock the response for get_all_loopbacks to simulate the loopback no longer exists
+    mock_response = """
+    <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+      <interface>
+      </interface>
+    </native>
+    """
+    with patch('app.api.delete_loopback.get_all_loopbacks', return_value=mock_response):
+
+
+        # Define the request payload
+        request = {
+            "name": "203",
+            "dry-run": False
+        }
+
+        # Call the delete_loopback function
+        response = delete_loopback(mock_connection, request)
+
+        # Check the response
+        expected_response = "Successfully deleted Loopback203\n\n" + mock_response
+        assert response == expected_response
+
+        # Optionally, you can also check if the loopback no longer exists in the configuration
+        post_delete_config = mock_response
+        assert "<Loopback>" not in post_delete_config

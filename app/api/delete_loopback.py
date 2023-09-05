@@ -1,7 +1,5 @@
 import ncclient
-
-from api.get_all_loopbacks import get_all_loopbacks
-
+from .get_all_loopbacks import get_all_loopbacks
 def delete_loopback(m, request):
         delete_loopback_template = """
         <config>
