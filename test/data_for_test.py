@@ -19,6 +19,13 @@ mock_request = {
     "netmask": "255.255.255.0",
     "dry-run": False
 }
+mock_interface_response = """
+Interface IP-Address OK? Method Status Protocol
+GigabitEthernet1 10.10.20.48 YES NVRAM up up
+GigabitEthernet2 unassigned YES NVRAM administratively down down
+GigabitEthernet3 unassigned YES NVRAM administratively down down
+Loopback203 192.168.45.1 YES other up up
+"""
 
 mock_config_response = """<?xml version="1.0" ?>
 <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
@@ -36,4 +43,5 @@ mock_config_response = """<?xml version="1.0" ?>
     </interface>
 </interfaces>
 """
+
 
