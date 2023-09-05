@@ -18,7 +18,7 @@ The Sky_networking repository contains a Python-based network automation program
 
 ## Getting Started
 
-- ### Installation (Windows / MacOS)
+- ### Installation
 
   - **Prerequisites**
 
@@ -29,19 +29,14 @@ The Sky_networking repository contains a Python-based network automation program
   - ### Windows
 
     - Git clone this repository
-    - Run this code in terminal, ``, to create a virtual environment.
-
-    In case of failures:
-
-    - Try to run each command seperately
+    - Run this code in terminal, `.venv\Scripts\Activate.ps1`, to create a virtual environment.
+    - Install required libraries: `pip install -r requirements.txt`
 
   - ### MacOS
 
-    1. Git clone this repository
-    2. Run this code in terminal, `source .venv/bin/activate` , to create a virtual environment.
-       - Install Flask: `python -m pip install flask`
-       - Install netmiko : ` pip install netmiko`
-       - Install ncclient: ` pip install ncclient`
+    - Git clone this repository
+    - Run this code in terminal, `source .venv/bin/activate` , to create a virtual environment.
+    - Install required libraries: `pip install -r requirements.txt`
 
 - ### Running the Code
 
@@ -61,6 +56,80 @@ The Sky_networking repository contains a Python-based network automation program
   - ### Making requests to the Application
 
     - You can use POSTMAN to make a **GET** / **POST** / **DELETE** request.
+    - By default, the `dry-run` is set to false, which sends the PAYLOAD to the device and a configured loopback in XML format is sent to the user.
+    - It can be set to _true_ to only send the PAYLOAD to the user, to examine the configuration.
+
+      - **GET** :
+
+        - `/interface`
+
+        Example body format to get an interface of a specific device:
+
+        ```
+        {
+
+            "ip": "sandbox-iosxe-recomm-1.cisco.com",
+
+            "device_type": "cisco_ios",
+
+            "username": "developer",
+
+            "password": "lastorangerestoreball8876"
+
+        }
+        ```
+
+      - **POST**:
+
+        - `/loopback`
+
+        Example body format to create a loopback:
+
+        ```
+        {
+            "host": "sandbox-iosxe-recomm-1.cisco.com",
+
+            "port": "830",
+
+            "username": "developer",
+
+            "password": "lastorangerestoreball8876",
+
+            "name": "4",
+
+            "description": "TEST",
+
+            "ip": "10.0.0.10",
+
+            "netmask": "255.255.255.0",
+
+            "dry-run": false
+
+        }
+        ```
+
+      - **DELETE**:
+
+        - `/loopback`
+
+        Example body format to delete a loopback:
+
+        ```
+        {
+
+            "host": "sandbox-iosxe-recomm-1.cisco.com",
+
+            "port": "830",
+
+            "username": "developer",
+
+            "password": "lastorangerestoreball8876",
+
+            "name":"3",
+
+            "dry-run":false
+        }
+        ```
 
 - ### Running the TESTS
 
@@ -70,22 +139,24 @@ The Sky_networking repository contains a Python-based network automation program
 - ### Project Folder structure
 
 ```
+
 ├── app
-│   ├── api
-│   │   ├── __init.py__
-│   │   ├── create_loopback.py
-│   │   ├── delete_loopback.py
-│   │   └── ... (other API related files)
-│   ├── model
-│   │   └── __init.py__
-│   │   └── devices.py
-│   │   └── ... (model related files)
-│   └── __init.py__
-│   └── app.py
-│   └── requirements.txt
+│ ├── api
+│ │ ├── **init.py**
+│ │ ├── create_loopback.py
+│ │ ├── delete_loopback.py
+│ │ └── ... (other API related files)
+│ ├── model
+│ │ └── **init.py**
+│ │ └── devices.py
+│ │ └── ... (model related files)
+│ └── **init.py**
+│ └── app.py
+│ └── requirements.txt
 └── test
-    ├── test_check.py
-    └── ... (other test files)
+├── test_check.py
+└── ... (other test files)
+
 ```
 
 There are two main folders, _app_ and _test_ respectively.
@@ -122,7 +193,17 @@ Inside the _app_ folder, it contains 2 subfolders, _api_ and _model_ and a main 
 
         As a network engineer, I would like to display a list of device interface, so that I can see their statuses.
 
-- ### Domain Models
+- ### Domain Model
+
+  | Object | Attributes  | Action                | Return          |
+  | ------ | ----------- | --------------------- | --------------- |
+  | Device | ip          | netmiko_connection()  | netmiko object  |
+  |        | device_type | ncclient_connection() | ncclient object |
+  |        | username    | delete_loopback()     | XML             |
+  |        | password    | create_loopback()     | XML             |
+  |        |             | filter_loopback()     | XML             |
+  |        |             | get_all_loopbacks()   | XML             |
+  |        |             | get_interface()       | String          |
 
 - ### Tests
 
