@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "4f9eb0e5-c56e-439f-b04a-2e382f49e2a2",
+		"name": "sky networking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create connection and get interface",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ip\": \"sandbox-iosxe-recomm-1.cisco.com\",\r\n     \"device_type\": \"cisco_ios\",\r\n      \"username\": \"developer\",\r\n       \"password\": \"lastorangerestoreball8876\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/interface",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"interface"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create connection and get inerface fails",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ip\": \"sandbox-iosxe-recomm-1.cisco.co\",\r\n     \"device_type\": \"cisco_ios\",\r\n      \"username\": \"developer\",\r\n       \"password\": \"lastorangerestoreball8876\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/interface",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"interface"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create loopback dry-run",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"host\": \"sandbox-iosxe-recomm-1.cisco.com\",\r\n    \"port\": \"830\",\r\n    \"username\": \"developer\",\r\n    \"password\": \"lastorangerestoreball8876\",\r\n    \"name\": \"3\",\r\n    \"description\": \"TEST\",\r\n    \"ip\": \"128.0.0.8\",\r\n    \"netmask\": \"255.255.255.0\",\r\n    \"dry-run\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/loopback",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"loopback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create loopback",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"host\": \"sandbox-iosxe-recomm-1.cisco.com\",\r\n    \"port\": \"830\",\r\n    \"username\": \"developer\",\r\n    \"password\": \"lastorangerestoreball8876\",\r\n    \"name\": \"3\",\r\n    \"description\": \"TEST\",\r\n    \"ip\": \"128.0.0.8\",\r\n    \"netmask\": \"255.255.255.0\",\r\n    \"dry-run\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/loopback",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"loopback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create loopback fails",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"host\": \"sandbox-iosxe-recomm-1.cisco.com\",\r\n    \"port\": \"830\",\r\n    \"username\": \"developer\",\r\n    \"password\": \"lastorangerestoreball8876\",\r\n    \"name\": \"3\",\r\n    \"description\": \"TEST\",\r\n    \"ip\": \"128.0.0.8\",\r\n    \"netmask\": \"255.255.255.0\",\r\n    \"dry-run\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/loopback",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"loopback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete loopback",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"3\",\r\n    \"dry-run\":false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/loopback",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"loopback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete loopback dry-run",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"3\",\r\n    \"dry-run\":false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/loopback",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"loopback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete loopback fails",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"3\",\r\n    \"dry-run\":false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/loopback",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"loopback"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
