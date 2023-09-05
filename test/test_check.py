@@ -61,7 +61,7 @@ def test_create_loopback():
     cleaned_expected_response = '\n'.join([line.strip() for line in expected_response.splitlines() if line.strip()])
     
     assert cleaned_response == cleaned_expected_response, f"Expected: {cleaned_expected_response}, but got: {cleaned_response}"
-
+    
 def test_get_interface():
     # Mock the connection object
     mock_connection = Mock()
