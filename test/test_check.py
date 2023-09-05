@@ -1,4 +1,4 @@
-import pytest
+import pytest, unittest
 from app.api.connect import netmiko_connection, ncclient_connection
 from .data_for_test import test_device, mock_request, mock_config_response, mock_interface_response
 from app.api.create_loopback import create_loopback
@@ -109,3 +109,41 @@ def test_delete_loopback():
         # Optionally, you can also check if the loopback no longer exists in the configuration
         post_delete_config = mock_response
         assert "<Loopback>" not in post_delete_config
+
+class TestDryRun(unittest.TestCase):
+
+    def setUp(self):
+        # Mock the connection object
+        self.mock_connection = Mock()
+
+    def test_create_loopback_dry_run(self):
+        # Mock request data
+        request_data = {
+            "name": "100",
+            "description": "Test Loopback",
+            "ip": "192.168.1.1",
+            "netmask": "255.255.255.0",
+            "dry-run": True
+        }
+
+        # Call the function
+        response = create_loopback(self.mock_connection, request_data)
+
+        # Assert the response contains the 'dry_run' status and the payload
+        self.assertIn("PAYLOAD:", response)
+
+    def test_delete_loopback_dry_run(self):
+        # Mock request data
+        request_data = {
+            "name": "100",
+            "dry-run": True
+        }
+
+        # Call the function
+        response = delete_loopback(self.mock_connection, request_data)
+
+        # Assert the response contains the 'dry_run' status and the payload
+        self.assertIn("PAYLOAD:", response)
+
+if __name__ == "__main__":
+    unittest.main()
