@@ -33,7 +33,7 @@ The Sky_networking repository contains a Python-based network automation program
   - ##### MacOS
 
     1. Git clone this repository
-    2. Run this code in terminal, `source .venv/bin/activate` , to create a virtual environment.
+    2. Run this code in terminal, `source venv/bin/activate` , to create a virtual environment.
        - Install Flask: `python -m pip install flask`
        - Install netmiko : ` pip install netmiko`
        - Install ncclient: ` pip install ncclient`
