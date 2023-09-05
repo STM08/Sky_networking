@@ -18,7 +18,7 @@ The Sky_networking repository contains a Python-based network automation program
 
 ## Getting Started
 
-- #### Installation (Windows / MacOS)
+- ### Installation (Windows / MacOS)
 
   - **Prerequisites**
 
@@ -26,34 +26,71 @@ The Sky_networking repository contains a Python-based network automation program
     - git (for cloning the repository)
     - Postman (for testing the API)
 
-  - #### Windows
+  - ### Windows
 
-    - Git clone this repository.
+    - Git clone this repository
+    - Run this code in terminal, ``, to create a virtual environment.
 
-  - ##### MacOS
+    In case of failures:
+
+    - Try to run each command seperately
+
+  - ### MacOS
 
     1. Git clone this repository
-    2. Run this code in terminal, `source venv/bin/activate` , to create a virtual environment.
+    2. Run this code in terminal, `source .venv/bin/activate` , to create a virtual environment.
        - Install Flask: `python -m pip install flask`
        - Install netmiko : ` pip install netmiko`
        - Install ncclient: ` pip install ncclient`
 
-- #### Running the Code
+- ### Running the Code
 
-To start the flask application, run the following command: `python -m flask run`
+  - ### Routes
 
-This will start the Flask web application, and you can access it via a web browser at http://127.0.0.1:5000/
+    - In the terminal, make sure you are in the folder that contains `app.py`.
+    - To start the flask application, run the following command: `python -m flask run`
 
-- #### Running the TESTS
+      This will start the Flask web application, and you can access it via a web browser at http://127.0.0.1:5000/
+
+    - Once connected, the terminal should display:
+
+          WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+          Running on http://127.0.0.1:5000
+          Press CTRL+C to quit
+
+  - ### Making requests to the Application
+
+    - You can use POSTMAN to make a **GET** / **POST** / **DELETE** request.
+
+- ### Running the TESTS
 
   - Install pytest `pip install pytest`
   - Run the test `pytest`
 
-- #### Project Folder structure
+- ### Project Folder structure
 
-  There are two main folders, _app_ and _test_ respectively.
+```
+├── app
+│   ├── api
+│   │   ├── __init.py__
+│   │   ├── create_loopback.py
+│   │   ├── delete_loopback.py
+│   │   └── ... (other API related files)
+│   ├── model
+│   │   └── __init.py__
+│   │   └── devices.py
+│   │   └── ... (model related files)
+│   └── __init.py__
+│   └── app.py
+│   └── requirements.txt
+└── test
+    ├── test_check.py
+    └── ... (other test files)
+```
 
-  Inside the _app_ folder, it contains 2 subfolders, _api_ and _model_ and a main _app.py_ file. The api folder contains files that connects to the devices via netconf and netmiko.
+There are two main folders, _app_ and _test_ respectively.
+
+Inside the _app_ folder, it contains 2 subfolders, _api_ and _model_ and a main _app.py_ file. The api folder contains files that connects to the devices via netconf and netmiko.
 
 ---
 
